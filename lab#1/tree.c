@@ -51,7 +51,7 @@ Node* find_node (Node* root, uint32_t node_data) {
     return NULL; 
 }
 
-int add_node(Node* root, uint32_t child_data, uint32_t parent_data) {
+uint32_t add_node(Node* root, uint32_t child_data, uint32_t parent_data) {
     if (root == NULL) {
         printf("Tree can't be null\n");
     }
@@ -68,6 +68,9 @@ int add_node(Node* root, uint32_t child_data, uint32_t parent_data) {
     }
 
     Node* child = create_node(child_data, parent);
+    if (child == NULL) {
+        return OPERATION_FAILED;
+    }
 
     if (parent->first_child == NULL) {
         parent->first_child = child;
@@ -81,7 +84,7 @@ int add_node(Node* root, uint32_t child_data, uint32_t parent_data) {
     return SUCCESS;
 }
 
-int delete_node(Node* node) {
+uint32_t delete_node(Node* node) {
     Node* child = node->first_child;
     while (child != NULL) {
         Node* next = child->next_sibling;
@@ -112,21 +115,27 @@ int delete_node(Node* node) {
 }
 
 
-int delete_by_key(Node* root, uint32_t node_data) {
-    if (root == NULL) {
+uint32_t delete_by_key(Tree* tree, uint32_t node_data) {
+    if (tree == NULL || tree->root == NULL) {
         return INVALID_INPUT;
     }
 
-    Node* node = find_node(root, node_data);
+    Node* node = find_node(tree->root, node_data);
     if (node == NULL) {
-        printf("Can't delete NULL node\n");
+        printf("Can't delete non-existing node\n");
         return INVALID_INPUT;
     }
 
-    return delete_node(node);
+    uint32_t status = delete_node(node);
+
+    if (status == SUCCESS && node == tree->root) {
+        tree->root = NULL;
+    }
+
+    return status;
 }
 
-int create_tree(uint32_t root_data, Tree** tree_var) {
+uint32_t create_tree(uint32_t root_data, Tree** tree_var) {
     Node* root = create_node(root_data, NULL);
     if (root == NULL) {
         printf("Something went wrong\n");
@@ -157,10 +166,10 @@ uint32_t max_key_depth(Node* node, uint32_t* curr_max, uint32_t* max_depth, uint
         child = child->next_sibling;
     }
 
-    return *max_depth;
+    return SUCCESS;
 }
 
-int find_max_depth(Node* node) {
+uint32_t find_max_depth(Node* node) {
     if (node == NULL) {
         printf("Tree can't be NULL\n");
         return INVALID_INPUT;
@@ -169,8 +178,8 @@ int find_max_depth(Node* node) {
     uint32_t curr_max = 0;
     uint32_t max_depth = 0;
 
-    uint32_t ans = max_key_depth(node, &curr_max, &max_depth, 0);
-    printf("%u\n", ans);
+    max_key_depth(node, &curr_max, &max_depth, 0);
+    printf("%u\n", max_depth);
     return SUCCESS;
 }
 
@@ -185,7 +194,7 @@ void print_tree(Node* root, int depth) {
     for(int i = 0; i < depth; i++) {
         printf("    ");
     }
-    printf("%d\n", root->data);
+    printf("%u\n", root->data);
     
     Node* child = root->first_child;
     while (child != NULL) {
@@ -194,7 +203,7 @@ void print_tree(Node* root, int depth) {
     }
 }
 
-int delete_tree(Tree* tree) {
+uint32_t delete_tree(Tree* tree) {
     if (tree == NULL || tree->root == NULL) {
         printf("Can't delete a NULL tree\n");
         return INVALID_INPUT;
@@ -208,8 +217,7 @@ int delete_tree(Tree* tree) {
 void cli() {
     Tree* tree = NULL;
     char option;
-    int status;
-    
+
     while (1) {
         printf("Choose an option: \n");
         printf("1. Create tree\n");
@@ -227,7 +235,7 @@ void cli() {
         switch (option) {
         case '1':
             if (tree != NULL) {
-                printf("Tree already exists");
+                printf("Tree already exists\n");
                 break;
             }
             uint32_t root_key;
@@ -262,20 +270,20 @@ void cli() {
             uint32_t key;
             printf("Node key to delete: ");
             scanf("%u", &key);
-            if (delete_by_key(tree->root, key) == SUCCESS) {
-                printf("Node with key %d deleted\n", key);
+            if (delete_by_key(tree, key) == SUCCESS) {
+                printf("Node with key %u deleted\n", key);
             }
             break;
         case '4':
-            if (tree == NULL) {
-                printf("Tree can't be NULL\n");
+            if (tree == NULL || tree->root == NULL) {
+                printf("Tree or root can't be NULL\n");
                 break;
             }
             find_max_depth(tree->root);
             break;
         case '5':
             if (tree == NULL) {
-                printf("Tree can't be NULL\n");
+                printf("Tree is not initialized\n");
                 break;
             }
             print_tree(tree->root, 0);
