@@ -205,11 +205,13 @@ void print_tree(Node* root, int depth) {
 }
 
 uint32_t delete_tree(Tree* tree) {
-    if (tree == NULL || tree->root == NULL) {
+    if (tree == NULL) {
         printf("Can't delete a NULL tree\n");
         return INVALID_INPUT;
     }
-    delete_node(tree->root);
+    if (tree->root != NULL) {
+        delete_node(tree->root);
+    }
     tree->root = NULL;
     free(tree);
     return SUCCESS;
