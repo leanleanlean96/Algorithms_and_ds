@@ -35,6 +35,7 @@ Node* find_node (Node* root, uint32_t node_data) {
         printf("root can't be NULL\n");
         return NULL;
     }
+
     if (root->data == node_data) {
         return root;
     }
@@ -217,8 +218,8 @@ uint32_t delete_tree(Tree* tree) {
 void cli() {
     Tree* tree = NULL;
     char option;
-
-    while (1) {
+    uint32_t running = 1;
+    while (running) {
         printf("Choose an option: \n");
         printf("1. Create tree\n");
         printf("2. Add node\n");
@@ -297,11 +298,11 @@ void cli() {
             break;
         case 'q':
         case 'Q':
-            if (delete_tree(tree) == SUCCESS) {
+            if (tree != NULL && delete_tree(tree) == SUCCESS) {
                 tree = NULL;
                 printf("Tree deleted\n");
-                return;
             }
+            running = 0;
             break;
         default:
             printf("Invalid option. Use 1-6\n");
