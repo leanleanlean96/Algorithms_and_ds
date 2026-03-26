@@ -118,6 +118,10 @@ int32_t print_array(DynamicArray* array) {
 }
 
 int32_t binary_search(DynamicArray* array, size_t array_size, float key, float* output) {
+    if (array_size == 0) {
+        return OPERATION_FAILED;
+    }
+
     size_t low = 0;
     size_t high = array_size - 1;
     
@@ -125,7 +129,7 @@ int32_t binary_search(DynamicArray* array, size_t array_size, float key, float* 
         size_t mid = (low + high) / 2;
 
         if (array->data[mid].key == key) {
-            *output = array->data[mid].key;
+            *output = array->data[mid].value;
             return SUCCESS;
         }
 
