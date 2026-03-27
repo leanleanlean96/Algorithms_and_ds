@@ -159,6 +159,7 @@ int32_t read_from_file(DynamicArray* array,char* filename) {
 }
 
 void run_test(char *filename, char *description) {
+    printf("%s", description);
     DynamicArray array;
     if (create_array(&array) != SUCCESS) {
         return;
