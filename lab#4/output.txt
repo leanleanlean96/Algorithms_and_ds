@@ -1,0 +1,170 @@
+> 1 ada 1.1
+  inserted: ada = 1.1
+
+> 1 basic 2.2
+  inserted: basic = 2.2
+
+> 1 cobol 3.3
+  inserted: cobol = 3.3
+
+> 1 cpp 4.4
+  inserted: cpp = 4.4
+
+> 1 dart 5.5
+  inserted: dart = 5.5
+
+> 1 elixir 6.6
+  inserted: elixir = 6.6
+
+> 1 erlang 7.7
+  inserted: erlang = 7.7
+
+> 1 forth 8.8
+  inserted: forth = 8.8
+
+> 1 go 9.9
+  inserted: go = 9.9
+
+> 1 java 10.1
+  inserted: java = 10.1
+
+> 1 kotlin 11.1
+  inserted: kotlin = 11.1
+
+> 1 lisp 12.2
+  inserted: lisp = 12.2
+
+> 1 lua 13.3
+  inserted: lua = 13.3
+
+> 1 nim 14.4
+  inserted: nim = 14.4
+
+> 1 ocaml 15.5
+  inserted: ocaml = 15.5
+
+> 1 pascal 16.6
+  inserted: pascal = 16.6
+
+> 1 perl 17.7
+  inserted: perl = 17.7
+
+> 1 prolog 18.8
+  inserted: prolog = 18.8
+
+> 1 python 19.9
+  inserted: python = 19.9
+
+> 1 ruby 20.0
+  inserted: ruby = 20
+
+> 1 rust 21.1
+  inserted: rust = 21.1
+
+> 1 scala 22.2
+  inserted: scala = 22.2
+
+> 3
+  tree:
+            [rust=21.1 | scala=22.2]
+        [prolog=18.8 | ruby=20]
+            [python=19.9]
+            [perl=17.7]
+    [lisp=12.2 | pascal=16.6]
+            [ocaml=15.5]
+        [nim=14.4]
+            [lua=13.3]
+            [kotlin=11.1]
+        [java=10.1]
+            [go=9.9]
+[forth=8.8]
+            [erlang=7.7]
+        [elixir=6.6]
+            [dart=5.5]
+    [cpp=4.4]
+            [cobol=3.3]
+        [basic=2.2]
+            [ada=1.1]
+
+> 4 lua
+  found: lua = 13.3
+
+> 4 zig
+  key 'zig' not found
+
+> 1 ada 99.9
+  key 'ada' already exists
+
+> 2 dart
+  removed: dart
+
+> 2 java
+  removed: java
+
+> 2 ada
+  removed: ada
+
+> 3
+  tree:
+        [rust=21.1 | scala=22.2]
+    [prolog=18.8 | ruby=20]
+        [python=19.9]
+        [perl=17.7]
+[lisp=12.2 | pascal=16.6]
+        [ocaml=15.5]
+    [nim=14.4]
+        [lua=13.3]
+        [go=9.9 | kotlin=11.1]
+    [cpp=4.4 | forth=8.8]
+        [elixir=6.6 | erlang=7.7]
+        [basic=2.2 | cobol=3.3]
+
+> 2 pascal
+  removed: pascal
+
+> 2 prolog
+  removed: prolog
+
+> 2 python
+  removed: python
+
+> 2 ruby
+  removed: ruby
+
+> 2 rust
+  removed: rust
+
+> 2 scala
+  removed: scala
+
+> 3
+  tree:
+        [ocaml=15.5 | perl=17.7]
+    [nim=14.4]
+        [lua=13.3]
+[lisp=12.2]
+        [go=9.9 | kotlin=11.1]
+    [cpp=4.4 | forth=8.8]
+        [elixir=6.6 | erlang=7.7]
+        [basic=2.2 | cobol=3.3]
+
+> 4 lua
+  found: lua = 13.3
+
+> 2 lua
+  removed: lua
+
+> 4 lua
+  key 'lua' not found
+
+> 3
+  tree:
+        [ocaml=15.5 | perl=17.7]
+    [kotlin=11.1 | nim=14.4]
+        [lisp=12.2]
+        [go=9.9]
+[forth=8.8]
+        [elixir=6.6 | erlang=7.7]
+    [cpp=4.4]
+        [basic=2.2 | cobol=3.3]
+
